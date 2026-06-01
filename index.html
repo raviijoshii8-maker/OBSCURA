@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="liminal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>OBSCURA · liminal wear · dusk cloth</title>
+  <!-- Typography: brutalist grotesk + ritual serif -->
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* THEME: LIMINAL (threshold — dusk & vitrified) */
+    :root[data-theme="liminal"] {
+      --bg: #03040a;
+      --surface: #0b0e17;
+      --surface-elevated: #141a26;
+      --text: #e5e9f0;
+      --text-soft: #8f9bb3;
+      --text-muted: #434d64;
+      --accent: #b86b77;
+      --accent-glow: #dd959f;
+      --accent-deep: #8a4b55;
+      --accent-subtle: #2a2228;
+      --border-light: #3c3240;
+      --shadow-sm: 0 15px 30px -12px rgba(0,0,0,0.9);
+      --shadow-lg: 0 35px 55px -15px rgba(0,0,0,1);
+      --transition: 0.3s ease-out;
+      --radius-card: 4px 40px 4px 40px;
+      --grid-gap: 2rem;
+    }
+
+    /* ALTERNATE THEME: "vitric" — pale glass & bone */
+    :root[data-theme="vitric"] {
+      --bg: #efebe4;
+      --surface: #ffffff;
+      --surface-elevated: #fefcf8;
+      --text: #1e1b24;
+      --text-soft: #6c6478;
+      --text-muted: #cfc8d4;
+      --accent: #b16e7a;
+      --accent-glow: #d3919c;
+      --accent-deep: #8f515d;
+      --accent-subtle: #eadde1;
+      --border-light: #ddd0d6;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      scroll-behavior: smooth;
+      font-weight: 400;
+      line-height: 1.45;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+    /* header — liminal threshold */
+    .liminal-header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      background: rgba(3, 4, 10, 0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--accent);
+      transition: var(--transition);
+    }
+    [data-theme="vitric"] .liminal-header {
+      background: rgba(239, 235, 228, 0.96);
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-liminal {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0.9rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-obscura {
+      font-family: 'Major Mono Display', monospace;
+      font-size: 1.4rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: var(--accent-glow);
+      text-transform: uppercase;
+      border-bottom: 3px dotted var(--accent);
+      line-height: 1.2;
+    }
+    .brand-obscura span {
+      font-size: 0.55rem;
+      letter-spacing: 3px;
+      margin-left: 8px;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .nav-liminal-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+    }
+    .nav-liminal-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .nav-liminal-links a:hover { color: var(--accent-glow); letter-spacing: 3px; }
+
+    .liminal-utils {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+    #themeToggleLiminal {
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      padding: 6px 12px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text);
+      font-family: monospace;
+      transition: 0.2s;
+    }
+    .liminal-cart {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+    .cart-count-liminal {
+      background: var(--accent);
+      color: #03040a;
+      font-size: 0.55rem;
+      font-weight: 800;
+      border-radius: 40%;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -10px;
+      right: -16px;
+    }
+
+    /* hero — liminal dusk */
+    .hero-liminal {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: 30% 50%;
+    }
+    .hero-liminal::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #03040acc 0%, #0b0e17aa 100%);
+      z-index: 1;
+    }
+    .hero-liminal-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      padding: 0 6%;
+    }
+    .hero-liminal-badge {
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: var(--accent-glow);
+      background: rgba(0,0,0,0.5);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .hero-liminal-title {
+      font-family: 'Major Mono Display', monospace;
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 400;
+      line-height: 0.95;
+      margin-bottom: 1rem;
+      color: #f1e7ea;
+      text-shadow: 2px 2px 0 var(--accent-deep);
+    }
+    .hero-liminal-offer {
+      font-size: 0.7rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      background: rgba(0,0,0,0.55);
+      display: inline-block;
+      padding: 0.45rem 1.3rem;
+      border-right: 3px solid var(--accent);
+    }
+
+    .btn-liminal {
+      background: var(--accent);
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-block;
+      text-decoration: none;
+      color: #03040a;
+      font-family: monospace;
+    }
+    .btn-liminal:hover {
+      background: var(--accent-glow);
+      transform: scale(0.97);
+      letter-spacing: 5px;
+    }
+
+    /* collection header */
+    .liminal-collection {
+      max-width: 1440px;
+      margin: 3rem auto 0.5rem auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      border-left: 6px solid var(--accent);
+      padding-left: 1.5rem;
+      margin-top: 3rem;
+    }
+    .liminal-collection h2 {
+      font-family: 'Major Mono Display', monospace;
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+    }
+    .liminal-collection p {
+      color: var(--accent-glow);
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      font-family: monospace;
+    }
+
+    /* product grid — liminal archive */
+    .grid-liminal {
+      max-width: 1440px;
+      margin: 2rem auto 5rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--grid-gap);
+    }
+
+    .liminal-card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .liminal-card:hover {
+      transform: translateY(-8px) rotate(0.5deg);
+      border-color: var(--accent-glow);
+      box-shadow: var(--shadow-lg);
+    }
+    .liminal-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--surface-elevated);
+    }
+    .liminal-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .liminal-card:hover .liminal-media img { transform: scale(1.05); filter: contrast(1.05); }
+    .liminal-quick {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(11, 14, 23, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem;
+      opacity: 0;
+      transition: 0.2s;
+      text-align: center;
+      transform: translateY(10px);
+    }
+    .liminal-card:hover .liminal-quick { opacity: 1; transform: translateY(0); }
+    .liminal-quick button {
+      background: var(--accent);
+      border: none;
+      width: 92%;
+      padding: 0.65rem;
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #03040a;
+      font-family: monospace;
+    }
+    .liminal-quick button:hover { background: white; color: #0b0e17; }
+
+    .liminal-info {
+      padding: 1rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .liminal-detail h4 {
+      font-size: 0.45rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--accent-glow);
+      letter-spacing: 2px;
+    }
+    .liminal-detail h3 {
+      font-family: 'Major Mono Display', monospace;
+      font-size: 0.9rem;
+      font-weight: 400;
+      margin-top: 6px;
+    }
+    .liminal-price { text-align: right; }
+    .liminal-current { font-weight: 800; font-size: 1rem; }
+    .liminal-old { font-size: 0.65rem; text-decoration: line-through; color: var(--text-muted); margin-left: 0.3rem; }
+
+    /* cart — dusk folio */
+    .cart-overlay-liminal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(28px);
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.2s;
+    }
+    .cart-overlay-liminal.active { visibility: visible; opacity: 1; }
+    .cart-liminal-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 540px;
+      height: 100vh;
+      background: var(--surface);
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow-lg);
+      z-index: 2001;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-overlay-liminal.active .cart-liminal-panel { transform: translateX(0); }
+    .cart-liminal-header {
+      padding: 1.4rem;
+      border-bottom: 1px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-liminal-header h3 {
+      font-family: 'Major Mono Display', monospace;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--accent-glow);
+    }
+    .close-liminal-cart {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .cart-liminal-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .liminal-cart-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.8rem;
+      background: var(--surface-elevated);
+      border-right: 4px solid var(--accent);
+      position: relative;
+      border-radius: 16px 4px 16px 4px;
+    }
+    .liminal-cart-img {
+      width: 70px;
+      height: 85px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .liminal-cart-details { flex: 1; }
+    .liminal-cart-name {
+      font-family: 'Major Mono Display', monospace;
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+    .liminal-cart-price { font-size: 0.7rem; color: var(--accent-glow); margin-top: 4px; }
+    .liminal-cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .liminal-qty-btn {
+      background: var(--accent-subtle);
+      border: none;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--text);
+      font-family: monospace;
+    }
+    .liminal-remove {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .cart-liminal-footer {
+      padding: 1.5rem;
+      border-top: 2px solid var(--accent);
+      background: var(--surface);
+    }
+    .liminal-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      font-family: monospace;
+    }
+    .liminal-checkout {
+      width: 100%;
+      background: var(--accent);
+      border: none;
+      padding: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #03040a;
+      font-family: monospace;
+    }
+    .liminal-checkout:hover { background: var(--accent-glow); letter-spacing: 5px; }
+    .empty-liminal-cart { text-align: center; color: var(--text-soft); padding: 2rem; font-size: 0.7rem; font-family: monospace;}
+
+    footer {
+      background: var(--surface-elevated);
+      margin-top: 2rem;
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--accent);
+    }
+    .footer-liminal {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .footer-liminal-brand {
+      font-family: 'Major Mono Display', monospace;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--accent-glow);
+    }
+    .footer-liminal-regions {
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      color: var(--text-soft);
+      margin: 0.6rem 0 1rem;
+      font-family: monospace;
+    }
+
+    /* modal — dusk invitation */
+    .modal-liminal {
+      position: fixed;
+      inset: 0;
+      z-index: 2200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(32px);
+      transition: opacity 0.25s;
+    }
+    .modal-liminal-block {
+      background: var(--surface);
+      max-width: 540px;
+      width: 100%;
+      border-top: 6px solid var(--accent);
+      padding: 2rem 2rem 2rem;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 40px 60px rgba(0,0,0,0.9);
+    }
+    .modal-liminal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .modal-liminal-icon {
+      width: 75px;
+      height: 75px;
+      background: rgba(184, 107, 119, 0.2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      border-radius: 100%;
+      border: 1px solid var(--accent);
+      color: var(--accent-glow);
+    }
+    .modal-liminal-title {
+      font-family: 'Major Mono Display', monospace;
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--accent-glow);
+      margin-bottom: 0.2rem;
+    }
+    .modal-liminal-desc {
+      color: var(--text-soft);
+      line-height: 1.5;
+      font-size: 0.85rem;
+      margin: 0.8rem 0;
+    }
+    .modal-liminal-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+    .btn-liminal-primary {
+      background: var(--accent);
+      border: none;
+      padding: 0.7rem 2rem;
+      font-weight: 800;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      color: #03040a;
+      font-family: monospace;
+    }
+    .btn-liminal-secondary {
+      background: transparent;
+      border: 1px solid var(--accent);
+      padding: 0.7rem 1.8rem;
+      font-weight: 600;
+      font-size: 0.7rem;
+      cursor: pointer;
+      color: var(--text);
+      font-family: monospace;
+    }
+    .modal-fade-liminal { opacity: 0; pointer-events: none; transition: opacity 0.2s; display: none; }
+
+    @media (max-width: 780px) {
+      .nav-liminal { flex-direction: column; gap: 0.8rem; }
+      .grid-liminal { gap: 1rem; }
+    }
+  </style>
+  
+   <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SBJZ7C7VV0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SBJZ7C7VV0');
+  </script>
+  
+</head>
+<body>
+
+<!-- entry modal: OBSCURA liminal rite -->
+<div id="entryModalLiminal" class="modal-liminal">
+  <div class="modal-liminal-block">
+    <button id="closeLiminalModal" class="modal-liminal-close"><i class="fas fa-eye"></i></button>
+    <div class="modal-liminal-icon"><i class="fas fa-cloud-moon"></i></div>
+    <h2 class="modal-liminal-title">OBSCURA</h2>
+    <p class="modal-liminal-desc">Liminal wear · dusk cloth · vitrified shadow. Garments from the threshold between light and absence. Enter the dusk.</p>
+    <div class="modal-liminal-buttons">
+      <button id="enterLiminalBtn" class="btn-liminal-primary">🌒 ENTER DUSK</button>
+      <button id="laterLiminalBtn" class="btn-liminal-secondary">STAY AT THRESHOLD</button>
+    </div>
+  </div>
+</div>
+
+<header class="liminal-header">
+  <div class="nav-liminal">
+    <div class="brand-obscura">OBSCURA<span>· LIMINAL</span></div>
+    <nav class="nav-liminal-links">
+      <a href="#shopLiminal">DUSK ARCHIVE</a>
+      <a href="#shopLiminal">VITRIFIED</a>
+      <a href="#shopLiminal">THRESHOLD</a>
+      <a href="#">VEIL</a>
+    </nav>
+    <div class="liminal-utils">
+      <button id="themeToggleLiminal">🕯️ VITRIC MODE</button>
+      <div class="liminal-cart" id="cartIconLiminal">
+        <i class="fas fa-feather-alt"></i>
+        <span class="cart-count-liminal" id="cartCountLiminal">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero-liminal">
+    <div class="hero-liminal-content">
+      <div class="hero-liminal-badge">DUSK CLOTH · VITRIFIED SHADOW · LIMINAL WEAR</div>
+      <h1 class="hero-liminal-title">OBSCURA</h1>
+      <div class="hero-liminal-offer">First threshold: <strong>15% dusk offering</strong> on your first liminal piece</div>
+      <a href="#shopLiminal" class="btn-liminal">CROSS THRESHOLD →</a>
+    </div>
+  </section>
+
+  <div class="liminal-collection" id="shopLiminal">
+    <h2>Liminal Archive · Dusk & Vitrified Cloth</h2>
+    <p>12 threshold garments</p>
+  </div>
+
+  <div class="grid-liminal" id="productGridLiminal"></div>
+</main>
+
+<footer>
+  <div class="footer-liminal">
+    <div class="footer-liminal-brand">OBSCURA</div>
+    <div class="footer-liminal-regions">DUSK CLOTH · VITRIFIED SHADOW · LIMINAL WEAR</div>
+    <p style="font-size:0.55rem; opacity:0.7;">© 2026 OBSCURA — worn at the threshold, between absence and light.</p>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div id="cartOverlayLiminal" class="cart-overlay-liminal">
+  <div class="cart-liminal-panel">
+    <div class="cart-liminal-header">
+      <h3>🌙 DUSK FOLIO</h3>
+      <button class="close-liminal-cart" id="closeCartLiminal"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-liminal-items" id="cartItemsLiminal">
+      <div class="empty-liminal-cart">The threshold is empty.<br>Add liminal garments.</div>
+    </div>
+    <div class="cart-liminal-footer" id="cartFooterLiminal" style="display: none;">
+      <div class="liminal-total"><span>Total (USD)</span><span id="cartTotalLiminal">$0</span></div>
+      <button class="liminal-checkout" id="checkoutLiminalBtn">🕯️ CONSECRATE DUSK</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // OBSCURA product catalog — liminal dusk wear, completely new imagery
+  const liminalProducts = [
+    { id: 8901, name: "Dusk Cloak", category: "THRESHOLD", original: 945, price: 803, img: "https://plus.unsplash.com/premium_photo-1764253266104-c7624880f4e9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "dusk cloak" },
+    { id: 8902, name: "Vitrified Tunic", category: "LIMINAL", original: 399, price: 339, img: "https://images.unsplash.com/photo-1733209589780-99d3a8a3b3e4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "tunic" },
+    { id: 8903, name: "Shadow Weave Shirt", category: "LAYER", original: 625, price: 531, img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?q=80&w=2070&auto=format&fit=crop", alt: "shirt" },
+    { id: 8904, name: "Liminal Pants", category: "BOTTOMS", original: 545, price: 463, img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?q=80&w=687&auto=format&fit=crop", alt: "pants" },
+    { id: 8905, name: "Obscura Anorak", category: "OUTER", original: 880, price: 748, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=687&auto=format&fit=crop", alt: "anorak" },
+    { id: 8906, name: "Dusk Vest", category: "VEST", original: 475, price: 403, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop", alt: "vest" },
+    { id: 8907, name: "Eidolon Smock", category: "SMOCK", original: 1095, price: 930, img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?q=80&w=2070&auto=format&fit=crop", alt: "smock" },
+    { id: 8908, name: "Obscura Coat", category: "COAT", original: 1650, price: 1402, img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=687&auto=format&fit=crop", alt: "coat" },
+    { id: 8909, name: "Liminal Cargo", category: "BOTTOMS", original: 590, price: 501, img: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?q=80&w=687&auto=format&fit=crop", alt: "cargo" },
+    { id: 8910, name: "Nocturn Hood", category: "HOODIE", original: 390, price: 331, img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=764&auto=format&fit=crop", alt: "hoodie" },
+    { id: 8911, name: "Threshold Duster", category: "OUTER", original: 1950, price: 1657, img: "https://images.unsplash.com/photo-1617339847948-7b36b2008611?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "duster" },
+    { id: 8912, name: "Vitric Shacket", category: "SHIRT", original: 690, price: 586, img: "https://images.unsplash.com/photo-1645106281520-be42c3042547?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "shacket" }
+  ];
+
+  let cartLiminal = [];
+  const cartOverlayLiminalDiv = document.getElementById('cartOverlayLiminal');
+  const cartLiminalIcon = document.getElementById('cartIconLiminal');
+  const closeCartLiminalBtn = document.getElementById('closeCartLiminal');
+  const cartLiminalContainer = document.getElementById('cartItemsLiminal');
+  const cartLiminalFooter = document.getElementById('cartFooterLiminal');
+  const cartTotalLiminalSpan = document.getElementById('cartTotalLiminal');
+  const cartCountLiminalSpan = document.getElementById('cartCountLiminal');
+
+  function persistLiminalCart() { localStorage.setItem('OBSCURA_CART', JSON.stringify(cartLiminal)); }
+  function loadLiminalCart() {
+    const saved = localStorage.getItem('OBSCURA_CART');
+    if (saved) cartLiminal = JSON.parse(saved);
+    renderLiminalCart();
+    updateLiminalCount();
+  }
+  function updateLiminalCount() { cartCountLiminalSpan.innerText = cartLiminal.reduce((sum,i)=>sum+i.qty,0); }
+
+  function renderLiminalCart() {
+    if (!cartLiminalContainer) return;
+    if (cartLiminal.length === 0) {
+      cartLiminalContainer.innerHTML = '<div class="empty-liminal-cart">The threshold is empty.<br>Add liminal garments.</div>';
+      cartLiminalFooter.style.display = 'none';
+      updateLiminalCount(); persistLiminalCart(); return;
+    }
+    cartLiminalFooter.style.display = 'block';
+    let html = ''; let total = 0;
+    cartLiminal.forEach(item => {
+      total += item.price * item.qty;
+      html += `<div class="liminal-cart-item" data-id="${item.id}">
+          <img class="liminal-cart-img" src="${item.img}" alt="${item.name}">
+          <div class="liminal-cart-details">
+            <div class="liminal-cart-name">${item.name}</div>
+            <div class="liminal-cart-price">$${item.price.toLocaleString()}</div>
+            <div class="liminal-cart-qty">
+              <button class="liminal-qty-dec" data-id="${item.id}">−</button>
+              <span>${item.qty}</span>
+              <button class="liminal-qty-inc" data-id="${item.id}">+</button>
+            </div>
+          </div>
+          <button class="liminal-remove" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+        </div>`;
+    });
+    cartLiminalContainer.innerHTML = html;
+    cartTotalLiminalSpan.innerText = `$${total.toLocaleString()}`;
+    document.querySelectorAll('.liminal-qty-dec').forEach(btn => btn.addEventListener('click', () => updateLiminalQty(parseInt(btn.dataset.id), -1)));
+    document.querySelectorAll('.liminal-qty-inc').forEach(btn => btn.addEventListener('click', () => updateLiminalQty(parseInt(btn.dataset.id), 1)));
+    document.querySelectorAll('.liminal-remove').forEach(btn => btn.addEventListener('click', () => removeLiminalItem(parseInt(btn.dataset.id))));
+    updateLiminalCount(); persistLiminalCart();
+  }
+  function updateLiminalQty(pid, delta) {
+    const idx = cartLiminal.findIndex(i=>i.id===pid);
+    if(idx !== -1){
+      const nq = cartLiminal[idx].qty + delta;
+      if(nq <= 0) cartLiminal.splice(idx,1);
+      else cartLiminal[idx].qty = nq;
+      renderLiminalCart();
+    }
+  }
+  function removeLiminalItem(pid){ cartLiminal = cartLiminal.filter(i=>i.id!==pid); renderLiminalCart(); }
+  function addToLiminalCart(pid){
+    const prod = liminalProducts.find(p=>p.id===pid);
+    if(!prod) return;
+    const existing = cartLiminal.find(i=>i.id===pid);
+    if(existing) existing.qty += 1;
+    else cartLiminal.push({id:prod.id, name:prod.name, price:prod.price, qty:1, img:prod.img});
+    renderLiminalCart();
+    const btn = document.querySelector(`.liminal-add-${pid}`);
+    if(btn){ let old = btn.innerText; btn.innerText="🌒 ADDED"; setTimeout(()=>btn.innerText=old,700); }
+    cartOverlayLiminalDiv.classList.add('active');
+  }
+
+  function renderLiminalProducts() {
+    const container = document.getElementById('productGridLiminal');
+    if(!container) return;
+    container.innerHTML = '';
+    liminalProducts.forEach(p => {
+      const disc = Math.round(((p.original-p.price)/p.original)*100);
+      const card = document.createElement('div');
+      card.className = 'liminal-card';
+      card.innerHTML = `
+        <div class="liminal-media">
+          <img src="${p.img}" alt="${p.alt||p.name}" loading="lazy">
+          <div class="liminal-quick"><button class="liminal-add-${p.id} add-liminal-btn" data-id="${p.id}">🌒 ADD TO DUSK</button></div>
+        </div>
+        <div class="liminal-info">
+          <div class="liminal-detail"><h4>${p.category}</h4><h3>${p.name}</h3></div>
+          <div class="liminal-price"><span class="liminal-current">$${p.price.toLocaleString()}</span><span class="liminal-old">$${p.original.toLocaleString()}</span><span style="font-size:0.55rem;color:var(--accent-glow);display:block;text-align:right;">-${disc}%</span></div>
+        </div>`;
+      container.appendChild(card);
+    });
+    document.querySelectorAll('.add-liminal-btn').forEach(btn => btn.addEventListener('click', (e)=>{ e.preventDefault(); addToLiminalCart(parseInt(btn.dataset.id)); }));
+  }
+
+  function initThemeLiminal() {
+    const stored = localStorage.getItem('OBSCURA_theme');
+    let theme = stored || 'liminal';
+    document.documentElement.setAttribute('data-theme', theme);
+    const toggle = document.getElementById('themeToggleLiminal');
+    if(toggle) toggle.textContent = theme === 'liminal' ? '🕯️ VITRIC MODE' : '🌙 LIMINAL MODE';
+  }
+  function toggleThemeLiminal() {
+    const curr = document.documentElement.getAttribute('data-theme');
+    const next = curr === 'liminal' ? 'vitric' : 'liminal';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('OBSCURA_theme', next);
+    const toggleBtn = document.getElementById('themeToggleLiminal');
+    if(toggleBtn) toggleBtn.textContent = next === 'liminal' ? '🕯️ VITRIC MODE' : '🌙 LIMINAL MODE';
+  }
+
+  // modal handlers
+  const modalLiminalElem = document.getElementById('entryModalLiminal');
+  const enterLiminal = document.getElementById('enterLiminalBtn'), laterLiminal = document.getElementById('laterLiminalBtn'), closeLiminalModalBtn = document.getElementById('closeLiminalModal');
+  function closeLiminalModalFunc() {
+    if(modalLiminalElem){
+      modalLiminalElem.classList.add('modal-fade-liminal');
+      setTimeout(()=>modalLiminalElem.style.display='none',200);
+    }
+  }
+  if(enterLiminal) enterLiminal.addEventListener('click', closeLiminalModalFunc);
+  if(laterLiminal) laterLiminal.addEventListener('click', closeLiminalModalFunc);
+  if(closeLiminalModalBtn) closeLiminalModalBtn.addEventListener('click', closeLiminalModalFunc);
+  if(modalLiminalElem) modalLiminalElem.addEventListener('click',(e)=>{ if(e.target===modalLiminalElem) closeLiminalModalFunc(); });
+
+  cartLiminalIcon?.addEventListener('click',()=>cartOverlayLiminalDiv.classList.add('active'));
+  closeCartLiminalBtn?.addEventListener('click',()=>cartOverlayLiminalDiv.classList.remove('active'));
+  cartOverlayLiminalDiv?.addEventListener('click',(e)=>{ if(e.target===cartOverlayLiminalDiv) cartOverlayLiminalDiv.classList.remove('active'); });
+  document.getElementById('checkoutLiminalBtn')?.addEventListener('click',()=>{ alert('OBSCURA accepts your dusk-offering. Your liminal garments are sealed in vitrified shadow and threshold thread.'); cartLiminal=[]; renderLiminalCart(); cartOverlayLiminalDiv.classList.remove('active'); });
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click',function(e){ const hash=this.getAttribute('href'); if(hash==="#") return; const sec=document.querySelector(hash); if(sec){ e.preventDefault(); sec.scrollIntoView({behavior:'smooth'}); } }); });
+
+  renderLiminalProducts();
+  initThemeLiminal();
+  loadLiminalCart();
+  document.getElementById('themeToggleLiminal')?.addEventListener('click', toggleThemeLiminal);
+</script>
+</body>
+</html>
